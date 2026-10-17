@@ -1,0 +1,37 @@
+name: ZonaQuintas pilot preview
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Install HyperFrames
+        run: npm install --no-save hyperframes
+      - name: Check pilot composition
+        run: |
+          cd pilots/zonaquintas
+          npx --no-install hyperframes lint
+      - name: Render pilot
+        run: |
+          cd pilots/zonaquintas
+          timeout 12m npx --no-install hyperframes render
+      - name: Collect preview
+        run: |
+          mkdir -p output
+          find pilots/zonaquintas/renders -type f -name '*.mp4' -exec cp {} output/ \;
+          test "$(find output -maxdepth 1 -name '*.mp4' | wc -l)" -ge 1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zonaquintas-pilot-preview-${{ github.run_number }}
+          path: output/
+          if-no-files-found: error
+          retention-days: 14
