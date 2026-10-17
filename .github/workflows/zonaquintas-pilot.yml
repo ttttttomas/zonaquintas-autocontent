@@ -16,7 +16,10 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Install HyperFrames
         run: npm install --no-save hyperframes
-      - name: Require official ZonaQuintas logo\n        run: |\n          test -s pilots/zonaquintas/assets/zonaquintas-logo.png || { echo "::error::Upload the official ZonaQuintas PNG to pilots/zonaquintas/assets/zonaquintas-logo.png"; exit 1; }\n      - name: Check pilot composition
+      - name: Require official ZonaQuintas logo
+        run: |
+          test -s pilots/zonaquintas/assets/zonaquintas-logo.png || { echo "::error::Official ZonaQuintas logo missing"; exit 1; }
+      - name: Check pilot composition
         run: |
           cd pilots/zonaquintas
           npx --no-install hyperframes lint
