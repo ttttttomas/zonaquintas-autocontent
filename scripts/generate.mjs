@@ -13,7 +13,7 @@ for (const [brandId,brand] of Object.entries(brands)) {
     .clip{position:absolute;left:80px;right:80px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800}
     .brand{top:125px;font-size:72px}.headline{top:480px;height:650px;font-size:110px;line-height:1.1}
     .sub{top:1260px;font-size:54px;font-weight:400}.cta{top:1560px;background:${brandId==='zonaquintas'?'#33ff33':'#ffffff'};color:#071309;border-radius:32px;padding:35px;font-size:52px}
-    </style></head><body><div id="stage" data-composition-id="${brandId}-${index+1}" data-no-timeline data-start="0" data-width="1080" data-height="1920">
+    </style></head><body><div id="stage" data-composition-id="${brandId}-${index+1}" data-no-timeline data-start="0" data-duration="12" data-width="1080" data-height="1920">
     <div class="clip brand" data-start="0" data-duration="12" data-track-index="0">${escapeHTML(brand.name)}</div>
     <div class="clip headline" data-start="1" data-duration="10" data-track-index="1">${escapeHTML(reel.title)}</div>
     <div class="clip sub" data-start="2" data-duration="9" data-track-index="2">${escapeHTML(reel.subtitle)}</div>
