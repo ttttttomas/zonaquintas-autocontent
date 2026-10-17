@@ -1,0 +1,5 @@
+node_modules/
+generated/
+output/
+.env
+*.mp4
